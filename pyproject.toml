@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hivemind-mcp"
+name = "mcp-hivemind"
 version = "0.1.0"
 description = "HiveMind: Shared Agent Memory for Teams — a plug-and-play MCP memory server with pluggable database backends"
 readme = "README.md"

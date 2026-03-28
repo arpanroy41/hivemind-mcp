@@ -19,16 +19,16 @@ HiveMind gives AI coding agents (Cursor, Claude Desktop, etc.) a persistent know
 ### 1. Install
 
 ```bash
-pip install hivemind-mcp
+pip install mcp-hivemind
 ```
 
 Or with a database backend:
 
 ```bash
-pip install "hivemind-mcp[mongodb]"   # MongoDB
-pip install "hivemind-mcp[postgres]"  # PostgreSQL
-pip install "hivemind-mcp[redis]"     # Redis
-pip install "hivemind-mcp[all]"       # All backends
+pip install "mcp-hivemind[mongodb]"   # MongoDB
+pip install "mcp-hivemind[postgres]"  # PostgreSQL
+pip install "mcp-hivemind[redis]"     # Redis
+pip install "mcp-hivemind[all]"       # All backends
 ```
 
 ### 2. Configure
@@ -222,19 +222,19 @@ Zero extra dependencies (uses stdlib). Stores a single `.db` file with proper ta
 
 ### MongoDB
 
-Install: `pip install "hivemind-mcp[mongodb]"`
+Install: `pip install "mcp-hivemind[mongodb]"`
 
 Recommended for teams. Document model fits naturally. Uses `insertMany(ordered=false)` for idempotent creates, `$push` for atomic observation appends.
 
 ### PostgreSQL
 
-Install: `pip install "hivemind-mcp[postgres]"`
+Install: `pip install "mcp-hivemind[postgres]"`
 
 Uses JSONB columns for observations. `INSERT ... ON CONFLICT DO NOTHING` for safe concurrent writes. Connection pooling via asyncpg.
 
 ### Redis
 
-Install: `pip install "hivemind-mcp[redis]"`
+Install: `pip install "mcp-hivemind[redis]"`
 
 Stores entities as hash fields, relations as set members. Fast reads. `HSETNX` for atomic creates.
 

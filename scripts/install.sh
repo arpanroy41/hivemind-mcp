@@ -73,11 +73,11 @@ esac
 echo ""
 
 # ── Step 3: Install package ─────────────────────────────────────────────
-echo -e "${BOLD}3. Installing hivemind-mcp...${NC}"
+echo -e "${BOLD}3. Installing mcp-hivemind...${NC}"
 if [[ "$HIVEMIND_BACKEND" == "jsonl" || "$HIVEMIND_BACKEND" == "sqlite" ]]; then
-    pip install hivemind-mcp 2>/dev/null || echo -e "${YELLOW}   (Install manually: pip install hivemind-mcp)${NC}"
+    pip install mcp-hivemind 2>/dev/null || echo -e "${YELLOW}   (Install manually: pip install mcp-hivemind)${NC}"
 else
-    pip install "hivemind-mcp[$HIVEMIND_BACKEND]" 2>/dev/null || echo -e "${YELLOW}   (Install manually: pip install 'hivemind-mcp[$HIVEMIND_BACKEND]')${NC}"
+    pip install "mcp-hivemind[$HIVEMIND_BACKEND]" 2>/dev/null || echo -e "${YELLOW}   (Install manually: pip install 'mcp-hivemind[$HIVEMIND_BACKEND]')${NC}"
 fi
 echo ""
 
