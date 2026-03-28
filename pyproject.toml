@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mcp-nexmem"
-version = "0.2.0"
+version = "0.3.0"
 description = "NexMem: Shared Agent Memory for Teams — a plug-and-play MCP memory server with pluggable database backends"
 readme = "README.md"
 license = "MIT"
