@@ -89,11 +89,42 @@ All configuration is via environment variables (prefix: `HIVEMIND_`):
 | `HIVEMIND_POSTGRES_URI` | `postgresql://localhost:5432/hivemind` |
 | `HIVEMIND_REDIS_URL` | `redis://localhost:6379/0` |
 
+## Namespaces: How Data Isolation Works
+
+`HIVEMIND_TEAM_NAME` and `HIVEMIND_USER_NAME` control which **namespace** your data is stored under. Namespaces provide complete data isolation within the same database.
+
+| Config | Namespace | Who sees the data |
+|---|---|---|
+| `MODE=self, USER_NAME=alice` | `self:alice` | Only Alice |
+| `MODE=self, USER_NAME=bob` | `self:bob` | Only Bob |
+| `MODE=team, TEAM_NAME=platform-eng` | `team:platform-eng` | Everyone with same team name |
+| `MODE=team, TEAM_NAME=frontend` | `team:frontend` | Different team, separate graph |
+
+Every entity and relation is tagged with the namespace in the database:
+
+```json
+{ "namespace": "team:platform-eng", "name": "AuthService", "entity_type": "service", ... }
+```
+
+- **In team mode**, `HIVEMIND_TEAM_NAME` determines the namespace. All team members who set the same team name share one knowledge graph.
+- **In self mode**, `HIVEMIND_USER_NAME` determines the namespace. Each user has a private graph.
+- Multiple teams can share the same database — their data is isolated by namespace.
+- Switching modes doesn't delete data. Both `self:alice` and `team:platform-eng` can coexist.
+
 ## Team Setup
 
 ### Step 1: Provision a shared database
 
-Pick a database your team can all reach. For a quick local setup:
+Pick a database your team can all reach.
+
+**Option A: MongoDB Atlas (recommended, free tier available)**
+
+1. Sign up at [mongodb.com/atlas](https://www.mongodb.com/atlas) and create a Free M0 cluster
+2. Create a database user and set Network Access to `0.0.0.0/0` (allow all IPs)
+3. Click Connect > Drivers > copy the connection string
+4. Use it as `HIVEMIND_MONGODB_URI` (append `/hivemind` as the database name)
+
+**Option B: Local Docker (for testing)**
 
 ```bash
 docker compose --profile mongodb up -d
